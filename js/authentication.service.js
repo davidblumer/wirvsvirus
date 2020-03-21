@@ -1,6 +1,6 @@
 class AuthenticationService {
     _token = null;
-    backendUrl = 'http://wirvsvirus.eu-central-1.elasticbeanstalk.com'
+    backendUrl = '//wirvsvirus.eu-central-1.elasticbeanstalk.com'
 
     constructor() {
         this._token = localStorage.getItem('token');
@@ -9,8 +9,6 @@ class AuthenticationService {
     set token(token) {
         this._token = token;
         localStorage.setItem('token', token);
-
-        console.log(localStorage.getItem('token'));
     }
 
     get token() {
@@ -24,7 +22,7 @@ class AuthenticationService {
 
         http({
             method: 'POST',
-            url: 'http://wirvsvirus.eu-central-1.elasticbeanstalk.com/api/login',
+            url: `${authenticationService.backendUrl}/api/login`,
             formData: formData
         }).then(response => {
             authenticationService.token = response;
@@ -44,7 +42,7 @@ class AuthenticationService {
         })
         http({
             method: 'POST',
-            url: 'http://wirvsvirus.eu-central-1.elasticbeanstalk.com/api/users',
+            url: `${authenticationService.backendUrl}/api/users`,
             body: JSON.stringify(obj)
         }).then(response => {
             this.token = response.token;

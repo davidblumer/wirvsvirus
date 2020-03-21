@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "be123cf6-32b7-4df4-8c2d-d3e15c20d435",
+		"name": "Nachbarschaftshilfe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "api.wirvsvirus@spomsoree.dev",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wirvsvirus.test/api/login",
+					"protocol": "http",
+					"host": [
+						"wirvsvirus",
+						"test"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tickets",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 703590337",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://wirvsvirus.test/api/tickets",
+					"protocol": "http",
+					"host": [
+						"wirvsvirus",
+						"test"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 703590337"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Kauf mir was\",\n  \"address\": {\n    \"street\": \"Vorgesenblick\",\n    \"houseNumber\": \"4\",\n    \"postalCode\": \"77704\",\n    \"city\": \"Oberkirch\",\n    \"latitude\": \"9\",\n    \"longitude\": \"23\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wirvsvirus.test/api/tickets",
+					"protocol": "http",
+					"host": [
+						"wirvsvirus",
+						"test"
+					],
+					"path": [
+						"api",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"test.wirvsvirus@spomsoree.dev\",\n  \"password\": \"test\",\n  \"address\": {\n    \"street\": \"Straße\",\n    \"houseNumber\": \"0\",\n    \"postalCode\": \"00000\",\n    \"city\": \"Musterstadt\",\n    \"latitude\": \"1\",\n    \"longitude\": \"2\"\n  },\n  \"paypal\": \"https://paypal.me/muster\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wirvsvirus.test/api/users",
+					"protocol": "http",
+					"host": [
+						"wirvsvirus",
+						"test"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
