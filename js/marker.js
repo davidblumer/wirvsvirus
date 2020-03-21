@@ -2,8 +2,8 @@ class Marker {
     constructor(id, location) {
         this.id = id;
         this.location = location;
-        this.marker = mapbox.addMarker(location.lng, location.lat);
-        this.addOnClick();
+        //this.marker = mapbox.addMarker(location.lng, location.lat);
+        //this.addOnClick();
     }
 
     static of(item) {
