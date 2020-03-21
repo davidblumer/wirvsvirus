@@ -1,0 +1,10 @@
+.modal-container { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; padding: 1em; overflow: hidden; -webkit-box-sizing: border-box; box-sizing: border-box; display: none; }
+
+.modal-container .modal { background: #f9f3f2; z-index: 1337; padding: 2em; border-radius: 8px; -webkit-box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025); box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025); }
+
+.modal-container .modal h3 { margin-top: 0; margin-bottom: 12px; font-size: 25px; }
+
+.modal-container .modal p { font-size: 20px; }
+
+.modal-container .modal#ab-warning { display: none; }
+/*# sourceMappingURL=modal.css.map */
