@@ -1,6 +1,7 @@
 let ipinfo;
 const mapbox = new Mapbox();
 const sidebar = new Sidebar();
+const navigation = new Navigation();
 function getLocation() {
     let q = new Promise((res, rej) => {
         let request = new XMLHttpRequest();
