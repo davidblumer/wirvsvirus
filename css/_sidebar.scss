@@ -1,0 +1,25 @@
+#sidebar {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 420;
+  background: #f9f3f2;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 1em;
+
+  @media(min-width: $breakpoint-md) {
+      width: 30%;
+  }
+  .close {
+    width: 32px;
+    height: 32px;
+    display: block;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    cursor: pointer;
+  }
+}

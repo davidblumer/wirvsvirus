@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/main.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
@@ -19,11 +18,19 @@
         <div id="logo">Einkaufshilfe</div>
         <ul>
             <li class="highlight">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
                 <a href="">Neues Gesuch</a>
             </li>
             <li><a href="">Profil</a></li>
             <li><a href="">Meine Gesuche</a></li>
         </ul>
+        <div id="hamburger">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </div>
     </nav>
 
     <aside id="sidebar">
@@ -53,7 +60,7 @@
 
 </html>
 
-<template id="listing">
+<template id="sidebar-content">
     <h2 id="title"></h2>
     <h4 id="description"></h4>
 </template>
