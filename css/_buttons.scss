@@ -35,5 +35,14 @@ button {
         background-color: darken(#221f60, 10%);
       }
     }
+
+    &.button-accent {
+      color: #f9f3f2;
+      background-color: #13c4a3;
+      &:hover {
+        transition: background-color 0.15s ease-in-out;
+        background-color: darken(#13c4a3, 10%);
+      }
+    }
   }
 }

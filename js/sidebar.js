@@ -2,10 +2,13 @@ class Sidebar {
     constructor() {
         this.visible = false;
         this.id = 'sidebar';
+        this.contentId = 'sidebar-content';
+        this.element = document.getElementById(this.id);
+        this.content = document.getElementById(this.contentId);
 
         this.hide();
         this.addCloseButton();
-        
+
     }
 
     show() {
@@ -20,7 +23,8 @@ class Sidebar {
     }
 
     toggle() {
-        if(this.visible) {
+        this.visible = !this.visible;
+        if (this.visible) {
             this.hide();
         } else {
             this.show();
@@ -30,4 +34,173 @@ class Sidebar {
     addCloseButton() {
         document.getElementById('close-sidebar').addEventListener("click", this.hide);
     }
+
+    clear() {
+        this.content.innerHTML = '';
+    }
+
+    append(element) {
+        this.clear();
+        this.content.append(element);
+        this.show();
+    }
+
+
+    showRegistration() {
+        const elements = [
+            {
+                type: "h1",
+                innerHTML: "Registrierung"
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "email"],
+                    ["name", "email"],
+                    ["placeholder", "E-Mail-Adresse"],
+                    ["required", "true"]
+                ]
+            },
+
+            {
+                type: "input",
+                attributes: [
+                    ["type", "password"],
+                    ["name", "password"],
+                    ["placeholder", "Passwort"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.street"],
+                    ["placeholder", "Straße"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.houseNumber"],
+                    ["placeholder", "Hausnummer"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.city"],
+                    ["placeholder", "Stadt"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.postalCode"],
+                    ["placeholder", "Postleitzahl"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "paypal"],
+                    ["placeholder", "PayPal-Link"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "button",
+                attributes: [
+                    ["type", "button"]
+                ],
+                classList: ["button", "button-accent"],
+                innerHTML: "Registrieren",
+                eventListener: authentication.registration
+            }
+        ];
+
+        const form = Sidebar.formBuilder("registration", elements);
+        this.append(form);
+    }
+
+    showLogin() {
+        const elements = [
+            {
+                type: "h1",
+                innerHTML: "Login"
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "email"],
+                    ["name", "email"],
+                    ["placeholder", "E-Mail-Adresse"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "password"],
+                    ["name", "password"],
+                    ["placeholder", "Passwort"],
+                    ["required", "true"]
+                ]
+            }, 
+            {
+                type: "button",
+                attributes: [
+                    ["type", "button"]
+                ],
+                classList: ["button", "button-accent"],
+                innerHTML: "Login",
+                eventListener: authentication.login
+            }
+        ];
+
+        const form = Sidebar.formBuilder("login", elements);
+        this.append(form);
+    }
+
+    static formBuilder(id, elements) {
+        const form = document.createElement("form");
+        form.setAttribute('id', id)
+
+        elements.map(element => {
+            const el = document.createElement(element.type);
+
+            if (element.attributes && element.attributes.length) {
+                element.attributes.map(attribute => {
+                    el.setAttribute(attribute[0], attribute[1]);
+                })
+            }
+
+            if (element.innerHTML) {
+                el.innerHTML = element.innerHTML;
+            }
+
+            if (element.classList) {
+                element.classList.map(cl => {
+                    el.classList.add(cl);
+                })
+            }
+
+            if (element.eventListener) {
+                el.addEventListener("click", element.eventListener);
+            }
+
+            return form.appendChild(el);
+        })
+
+        return form;
+    }
 }
+

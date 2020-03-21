@@ -17,14 +17,16 @@
     <nav id="navigation">
         <div id="logo">Einkaufshilfe</div>
         <ul id="navigation-content">
-            <li class="highlight">
+            <li class="highlight" id="create-listing">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                <a href="">Neues Gesuch</a>
+                Neues Gesuch
             </li>
-            <li><a href="">Profil</a></li>
-            <li><a href="">Meine Gesuche</a></li>
+            <li id="show-profile">Profil</li>
+            <li id="show-listings">Meine Gesuche</li>
+            <li id="show-registration">Registrierung</li>
+            <li id="show-login">Login</li>
         </ul>
         <div id="hamburger">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +41,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </span>
-        Pimmel
+        <div id="sidebar-content"></div>
     </aside>
     <div id="loading"></div>
     <div id='map'></div>
@@ -52,7 +54,9 @@
     </div>
 
     <script src="./js/config.js"></script>
+    <script src="./js/authentication.js"></script>
     <script src="./js/navigation.js"></script>
+    <script src="./js/request.js"></script>
     <script src="./js/sidebar.js"></script>
     <script src="./js/map.js"></script>
     <script src="./js/marker.js"></script>
@@ -60,8 +64,3 @@
 </body>
 
 </html>
-
-<template id="sidebar-content">
-    <h2 id="title"></h2>
-    <h4 id="description"></h4>
-</template>

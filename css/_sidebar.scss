@@ -10,8 +10,8 @@
   overflow: hidden;
   padding: 1em;
 
-  @media(min-width: $breakpoint-md) {
-      width: 30%;
+  @media (min-width: $breakpoint-md) {
+    width: 30%;
   }
   .close {
     width: 32px;
@@ -21,5 +21,26 @@
     right: 1em;
     top: 1em;
     cursor: pointer;
+  }
+
+  #sidebar-content {
+    width: 100%;
+
+    #registration,
+    #login {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        background: lighten(#f9f3f2, 10%);
+        border: 2px solid darken(#f9f3f2, 10%);
+        margin-bottom: 1em;
+        height: 48px;
+        padding-left: 1em;
+        font-size: 18px;
+        font-weight: 400;
+        border-radius: 7px;
+      }
+    }
   }
 }

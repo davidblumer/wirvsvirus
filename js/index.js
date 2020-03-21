@@ -1,36 +1,19 @@
 let ipinfo;
 const mapbox = new Mapbox();
+const authentication = new Authentication();
 const sidebar = new Sidebar();
 const navigation = new Navigation();
 
 
 function getLocation() {
-    let q = new Promise((res, rej) => {
-        let request = new XMLHttpRequest();
-        request.open('GET', 'https://ipinfo.io/json?token=' + config.tokens.ipinfo, true);
-
-        request.onload = function () {
-            if (this.status >= 200 && this.status < 400) {
-                res(this.response);
-            } else {
-            }
-        };
-
-        request.onerror = e => {
-            rej(e);
-        };
-
-        request.send();
-    });
-
-    return q;
+    return http({method: 'GET', url:'https://ipinfo.io/json?token=' + config.tokens.ipinfo});
 }
 
 
 
 getLocation().then(response => {
-    ipinfo = JSON.parse(response);
-    ipinfo.loc = ipinfo.loc.split(",").reverse();
+    response.loc = response.loc.split(",").reverse();
+    ipinfo = response;
     mapbox.center(ipinfo.loc[0], ipinfo.loc[1]);
 
     const markers = Marker.generateRandom({ 'lat': parseFloat(ipinfo.loc[1]), 'lng': parseFloat(ipinfo.loc[0]) }, 15000, 20)
