@@ -1,4 +1,4 @@
-class Navigation {
+class NavigationService {
     constructor() {
         this.visible = false;
         this.navigation = document.getElementById("navigation-content");
@@ -9,7 +9,8 @@ class Navigation {
             listing: {
                 title: "Neues Gesuch",
                 id: "new-listing",
-                protected: true
+                protected: true,
+                highlighted: true
             },
             profile: {
                 title: "Profil",
@@ -30,17 +31,45 @@ class Navigation {
                 title: "Login",
                 id: "show-login",
                 protected: false
+            },
+            logout: {
+                title: "Logout",
+                id: "logout",
+                protected: true
             }
         };
 
+        this.draw();
+    }
+
+    draw() {
+        this.clear();
+
         Object.keys(this.elements).map(key => {
-            if (this[key]) {
-                document.getElementById(this.elements[key].id).addEventListener('click', () => {
-                    this.hideOnClick();
-                    return this[key]();
-                })
+            if(authenticationService.isAuthenticated() && this.elements[key].protected
+            || !authenticationService.isAuthenticated() && !this.elements[key].protected) {
+                const navEl = document.createElement("li");
+                navEl.innerHTML = this.elements[key].title;
+                navEl.setAttribute("id", this.elements[key].id);
+
+                if(this.elements[key].highlighted) {
+                    navEl.classList.add("highlight")
+                }
+                this.navigation.append(navEl);    
+                
+                if (this[key]) {
+                    document.getElementById(this.elements[key].id).addEventListener('click', () => {
+                        this.hideOnClick();
+                        return this[key]();
+                    })
+                }    
             }
+
         });
+    }
+
+    clear() {
+        this.navigation.innerHTML = "";
     }
 
     show() {
@@ -78,10 +107,14 @@ class Navigation {
     }
 
     registration() {
-        sidebar.showRegistration();
+        sidebarService.showRegistration();
     }
 
     login() {
-        sidebar.showLogin();
+        sidebarService.showLogin();
+    }
+
+    logout() {
+        authenticationService.logout();
     }
 }

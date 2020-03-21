@@ -15,7 +15,14 @@ function http(options) {
             rej(e);
         };
 
-        request.send();
+        if(options.formData) {
+            request.send(options.formData);
+        } else if(options.body) {
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.send(options.body);
+        } else {
+            request.send();
+        }
 
     });
 

@@ -1,4 +1,4 @@
-class Sidebar {
+class SidebarService {
     constructor() {
         this.visible = false;
         this.id = 'sidebar';
@@ -123,11 +123,11 @@ class Sidebar {
                 ],
                 classList: ["button", "button-accent"],
                 innerHTML: "Registrieren",
-                eventListener: authentication.registration
+                eventListener: authenticationService.registration
             }
         ];
 
-        const form = Sidebar.formBuilder("registration", elements);
+        const form = SidebarService.formBuilder("registration", elements);
         this.append(form);
     }
 
@@ -162,11 +162,11 @@ class Sidebar {
                 ],
                 classList: ["button", "button-accent"],
                 innerHTML: "Login",
-                eventListener: authentication.login
+                eventListener: () => {authenticationService.login("api.wirvsvirus@spomsoree.dev", "test")}
             }
         ];
 
-        const form = Sidebar.formBuilder("login", elements);
+        const form = SidebarService.formBuilder("login", elements);
         this.append(form);
     }
 

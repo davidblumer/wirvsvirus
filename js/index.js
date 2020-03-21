@@ -1,8 +1,8 @@
 let ipinfo;
 const mapbox = new Mapbox();
-const authentication = new Authentication();
-const sidebar = new Sidebar();
-const navigation = new Navigation();
+const authenticationService = new AuthenticationService();
+const sidebarService = new SidebarService();
+const navigationService = new NavigationService();
 
 
 function getLocation() {
