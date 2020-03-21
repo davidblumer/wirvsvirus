@@ -1,6 +1,6 @@
 class AuthenticationService {
     _token = null;
-    backendUrl = '//wirvsvirus.eu-central-1.elasticbeanstalk.com'
+    backendUrl = 'http://wirvsvirus.eu-central-1.elasticbeanstalk.com'
 
     constructor() {
         this._token = localStorage.getItem('token');
