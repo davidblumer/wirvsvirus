@@ -24,6 +24,9 @@ locationService.fetchLocation().then(location => {
                     'features': listings.map(listing => {
                         return {
                             'type': 'Feature',
+                            'properties': {
+                                'id': listing.id
+                            },
                             'geometry': {
                                 'type': 'Point',
                                 'coordinates': [listing.address.longitude, listing.address.latitude]
@@ -40,6 +43,17 @@ locationService.fetchLocation().then(location => {
                     'icon-image': 'pulsing-dot'
                 }
             });
+
+            mapbox.map.on('click', 'points', function (e) {
+                mapbox.map.flyTo({ center: e.features[0].geometry.coordinates, zoom: 15});
+
+                let id = e.features[0].properties.id;
+
+                listingService.fetchListing(id).then(listing => {
+                    sidebarService.showListing(listing);
+                })
+            });
+
         });
     });
 

@@ -15,14 +15,13 @@ class AuthenticationService {
     }
 
     login(email, password) {
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("password", password);
-
         http({
             method: 'POST',
             url: `${config.backendUrl}/api/login`,
-            formData: formData
+            body: {
+                "username": email,
+                "password": password
+            }
         }).then(response => {
             authenticationService.token = response;
             navigationService.draw();

@@ -28,8 +28,7 @@ class Listing {
 
 class ListingService {
     listings = [];
-    constructor() {
-    }
+    constructor() {}
 
     fetchListings(location) {
         return http({
@@ -39,6 +38,13 @@ class ListingService {
             this.listings = Listing.toListings(response["hydra:member"]);
             return this.listings;
         })
+    }
+
+    fetchListing(id) {
+        return http({
+            method: 'GET',
+            url: `${config.backendUrl}/api/tickets/${id}`
+        }).then(response => Listing.of(response));
     }
 
     createListing() {

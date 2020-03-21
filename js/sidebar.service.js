@@ -170,6 +170,28 @@ class SidebarService {
         this.append(form);
     }
 
+    showListing(listing) {
+        const elements = [
+            {
+                type: "h1",
+                innerHTML: `${listing.title}`
+            },
+            {
+                type: "button",
+                attributes: [
+                    ["type", "button"]
+                ],
+                classList: ["button", "button-accent"],
+                innerHTML: "Annehmen",
+                //eventListener: 
+            }
+        ];
+
+        const form = SidebarService.formBuilder("listing", elements);
+        this.append(form);
+
+    }
+
     showCreateListing(listing) {
         const elements = [
             {

@@ -5,7 +5,8 @@ class Mapbox {
             container: 'map',
             style: 'mapbox://styles/davidblumer/ck80oilro089t1ip59roy183k',
             center: [10.482652, 51.085998],
-            zoom: 6
+            zoom: 6,
+            maxZoom: 14
         });
         this.map = map;
 
