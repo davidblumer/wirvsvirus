@@ -18,6 +18,8 @@ class Authentication {
         http({
             method: 'POST',
             url: 'http://wirvsvirus.eu-central-1.elasticbeanstalk.com/api/users'
+        }).then(response => {
+            
         })
     }
 }

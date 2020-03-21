@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color:rgba(19, 54, 106, .8);
+  background-color: rgba(19, 54, 106, 0.8);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -17,6 +17,15 @@
   -webkit-box-shadow: 0px 3px 21px -10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 3px 21px -10px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 3px 21px -10px rgba(0, 0, 0, 0.5);
+
+  #logo {
+    color: #fff;
+    background-image: url("../assets/helping_hands_logo.svg");
+    background-size: contain;
+    width: 150px;
+    height: 43px;
+    background-repeat: no-repeat;
+  }
 
   ul {
     position: absolute;
@@ -29,7 +38,7 @@
     align-items: flex-start;
     flex-direction: column;
     list-style-type: none;
-    background-color:rgba(19, 54, 106, 1);
+    background-color: rgba(19, 54, 106, 1);
 
     li {
       margin-left: 0;
@@ -54,7 +63,7 @@
         justify-content: center;
         align-items: center;
         padding: 0.5em 1em;
-        padding-left: .6em;
+        padding-left: 0.6em;
         border-radius: 5px;
         color: #f9f3f2;
         background-color: #13c4a3;
@@ -86,7 +95,7 @@
       }
     }
 
-    @media(min-width: $breakpoint-md) {
+    @media (min-width: $breakpoint-md) {
       display: flex !important;
       align-items: center;
       margin: 0;
@@ -100,7 +109,6 @@
         margin-bottom: 0;
       }
     }
-
   }
 
   #hamburger {
@@ -109,7 +117,7 @@
     width: 25px;
     height: 25px;
 
-    @media(min-width: $breakpoint-md) {
+    @media (min-width: $breakpoint-md) {
       display: none;
     }
   }
