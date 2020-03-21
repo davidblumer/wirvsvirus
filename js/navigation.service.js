@@ -102,8 +102,11 @@ class NavigationService {
         console.log("asdf")
     }
 
+    listing() {
+        sidebarService.showCreateListing();
+    }
+
     listings() {
-        console.log("asdf")
     }
 
     registration() {

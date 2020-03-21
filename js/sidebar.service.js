@@ -170,6 +170,73 @@ class SidebarService {
         this.append(form);
     }
 
+    showCreateListing(listing) {
+        const elements = [
+            {
+                type: "h1",
+                innerHTML: "Gesuch erstellen"
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "title"],
+                    ["placeholder", "Titel"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.street"],
+                    ["placeholder", "Straße"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.houseNumber"],
+                    ["placeholder", "Hausnummer"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.city"],
+                    ["placeholder", "Stadt"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "address.postalCode"],
+                    ["placeholder", "Postleitzahl"],
+                    ["required", "true"]
+                ]
+            },
+                        {
+                type: "button",
+                attributes: [
+                    ["type", "button"]
+                ],
+                classList: ["button", "button-accent"],
+                innerHTML: "Erstellen",
+                eventListener: listingService.createListing
+            }
+        ];
+
+        const form = SidebarService.formBuilder("create-listing", elements);
+        this.append(form);
+
+    }
+
     static formBuilder(id, elements) {
         const form = document.createElement("form");
         form.setAttribute('id', id)

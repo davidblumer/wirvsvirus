@@ -1,51 +1,48 @@
-let ipinfo;
 const mapbox = new Mapbox();
 const authenticationService = new AuthenticationService();
 const sidebarService = new SidebarService();
 const navigationService = new NavigationService();
+const listingService = new ListingService();
+const locationService = new LocationService();
 
 
-function getLocation() {
-    return http({method: 'GET', url:'https://ipinfo.io/json?token=' + config.tokens.ipinfo});
-}
+locationService.fetchLocation().then(location => {
+    mapbox.center(location[0], location[1]);
 
+    // const markers = ListingService.generateRandomListings({ 'lat': parseFloat(ipinfo.loc[1]), 'lng': parseFloat(ipinfo.loc[0]) }, 15000, 20)
 
-
-getLocation().then(response => {
-    response.loc = response.loc.split(",").reverse();
-    ipinfo = response;
-    mapbox.center(ipinfo.loc[0], ipinfo.loc[1]);
-
-    const markers = Marker.generateRandom({ 'lat': parseFloat(ipinfo.loc[1]), 'lng': parseFloat(ipinfo.loc[0]) }, 15000, 20)
     // .map(marker => mapbox.addMarker(marker.lng, marker.lat));
+    listingService.fetchListings(locationService.loc).then(listings => {
+        mapbox.map.on('load', function () {
+            mapbox.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
 
-    mapbox.map.on('load', function () {
-        mapbox.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
-
-        mapbox.map.addSource('points', {
-            'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': markers.map(marker => {
-                    return {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [marker.location.lng, marker.location.lat]
+            mapbox.map.addSource('points', {
+                'type': 'geojson',
+                'cluster': false,
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': listings.map(listing => {
+                        return {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [listing.address.longitude, listing.address.latitude]
+                            }
                         }
-                    }
-                })
-            }
-        });
-        mapbox.map.addLayer({
-            'id': 'points',
-            'type': 'symbol',
-            'source': 'points',
-            'layout': {
-                'icon-image': 'pulsing-dot'
-            }
+                    })
+                }
+            });
+            mapbox.map.addLayer({
+                'id': 'points',
+                'type': 'symbol',
+                'source': 'points',
+                'layout': {
+                    'icon-image': 'pulsing-dot'
+                }
+            });
         });
     });
+
 
 
 }, rejected => {
