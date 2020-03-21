@@ -1,32 +1,41 @@
 let ipinfo;
 const mapbox = new Mapbox();
-
+const sidebar = new Sidebar();
 function getLocation() {
-    let request = new XMLHttpRequest();
-    request.open('GET', 'https://ipinfo.io/json?token=' + config.tokens.ipinfo, true);
+    let q = new Promise((res, rej) => {
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://ipinfo.io/json?token=' + config.tokens.ipinfo, true);
+    
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                res(this.response);
+            } else {
+            }
+        };
+    
+        request.onerror = e => {
+            rej(e);
+        };
+    
+        request.send();
+    });
 
-    request.onload = function () {
-        if (this.status >= 200 && this.status < 400) {
-            ipinfo = JSON.parse(this.response);
-            ipinfo.loc = ipinfo.loc.split(",").reverse();
-            mapbox.center(ipinfo.loc[0], ipinfo.loc[1]);
-
-            Marker.generateRandom({ 'lat': parseFloat(ipinfo.loc[1]), 'lng': parseFloat(ipinfo.loc[0]) }, 15000, 20)
-                .map(marker => mapbox.addMarker(marker.lng, marker.lat));
-        } else {
-        }
-    };
-
-    request.onerror = function () {
-        showAdBlockModal();
-    };
-
-    request.send();
+    return q;
 }
 
 
 
-getLocation();
+getLocation().then(response => {
+    ipinfo = JSON.parse(response);
+    ipinfo.loc = ipinfo.loc.split(",").reverse();
+    mapbox.center(ipinfo.loc[0], ipinfo.loc[1]);
+
+    Marker.generateRandom({ 'lat': parseFloat(ipinfo.loc[1]), 'lng': parseFloat(ipinfo.loc[0]) }, 15000, 20)
+        // .map(marker => mapbox.addMarker(marker.lng, marker.lat));
+
+}, rejected => {
+    showAdBlockModal();
+});
 
 function showAdBlockModal() {
     document.getElementsByClassName('modal-container')[0].style.display = 'flex';

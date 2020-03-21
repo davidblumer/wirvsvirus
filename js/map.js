@@ -12,21 +12,35 @@ class Mapbox {
         this.map.on('load', () => {
             hideLoadingOverlay();
 
-            this.map.addSource('points', {
-                'type': 'geojson',
-                'data': {
-                    
-                }
-            });
+            // this.map.addSource('points', {
+            //     'type': 'geojson',
+            //     'data': {
+            //         'data': {
+            //             'type': 'FeatureCollection',
+            //             'features': [
+            //                 {
+            //                     'type': 'Feature',
+            //                     'properties': {},
+            //                     'geometry': {
+            //                         'type': 'Point',
+            //                         'coordinates': [
+            //                             -91.395263671875,
+            //                             -0.9145729757782163
+            //                         ]
+            //                     }
+            //                 }]
+            //         }
+            //     }
+            // });
 
-            this.map.addLayer({
-                'id': 'symbols',
-                'type': 'symbol',
-                'source': 'points',
-                'layout': {
-                    'icon-image': 'rocket-15'
-                }
-            });
+            // this.map.addLayer({
+            //     'id': 'symbols',
+            //     'type': 'symbol',
+            //     'source': 'points',
+            //     'layout': {
+            //         'icon-image': 'rocket-15'
+            //     }
+            // });
 
         })
     }
@@ -42,7 +56,7 @@ class Mapbox {
         lng = lng.toFixed(4);
         lat = lat.toFixed(4);
 
-        new mapboxgl.Marker()
+        return new mapboxgl.Marker()
             .setLngLat([lng, lat])
             .addTo(this.map);
     }

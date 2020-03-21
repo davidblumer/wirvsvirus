@@ -29,4 +29,24 @@ button.button.button-primary:hover { -webkit-transition: background-color 0.15s 
 button.button.button-secondary { color: #f9f3f2; background-color: #221f60; }
 
 button.button.button-secondary:hover { -webkit-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; background-color: #141339; }
+
+#navigation { width: 100%; position: absolute; height: 70px; z-index: 1337; top: 0; left: 0; right: 0; background-color: #0b203f; color: #fff; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; align-items: center; padding-left: 2em; padding-right: 2em; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+#navigation ul { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; -webkit-box-align: center; -ms-flex-align: center; align-items: center; list-style-type: none; margin: 0; height: 100%; }
+
+#navigation ul li { margin-left: 2em; }
+
+#navigation ul li a { color: #fff; text-decoration: none; }
+
+#navigation ul li a:focus, #navigation ul li a:active, #navigation ul li a:visited { color: #fff; }
+
+#navigation ul li a:hover { font-weight: 500; }
+
+#navigation ul li.highlight { padding: 0.5em 1em; border-radius: 5px; color: #f9f3f2; background-color: #13c4a3; cursor: pointer; -webkit-box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025); box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025); -webkit-box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08); box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08); }
+
+#navigation ul li.highlight:hover { -webkit-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; background-color: #0e967c; }
+
+#sidebar { position: absolute; top: 70px; right: 0; bottom: 0; width: 30%; z-index: 420; background: #F9F3F2; -webkit-box-sizing: border-box; box-sizing: border-box; overflow: hidden; padding: 1em; }
+
+#sidebar .close { width: 32px; height: 32px; display: block; position: absolute; right: 1em; top: 1em; cursor: pointer; }
 /*# sourceMappingURL=base.css.map */
