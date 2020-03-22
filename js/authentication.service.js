@@ -26,6 +26,10 @@ class AuthenticationService {
             authenticationService.token = response.token;
             navigationService.draw();
             sidebarService.hide();
+
+            ticketService.fetchTickets(locationService.loc).then(tickets => {
+                mapbox.addMarker(tickets);
+            });
         })
 
     }
@@ -33,15 +37,20 @@ class AuthenticationService {
     registration() {
         const form = document.getElementById("registration");
         let formData = formDataToJSON(form);
+        locationService.getLocationFromAdress(formData).then(formData => {
+            http({
+                method: 'POST',
+                url: `${config.backendUrl}/api/users`,
+                body: formData
+            }).then(response => {
+                this.token = response.token;
+                navigationService.draw();
+            }).catch(error => {
+                console.log(error);
+            })
+        });
 
-        http({
-            method: 'POST',
-            url: `${config.backendUrl}/api/users`,
-            body: formData
-        }).then(response => {
-            this.token = response.token;
-            navigationService.draw();
-        })
+
     }
 
     logout() {
@@ -49,7 +58,7 @@ class AuthenticationService {
         localStorage.removeItem('token');
         navigationService.draw();
     }
-    
+
     isAuthenticated() {
         return this.token;
     }

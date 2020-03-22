@@ -8,7 +8,7 @@
   background: #f9f3f2;
   box-sizing: border-box;
   overflow: hidden;
-  padding: 1em;
+  // padding: 1em;
 
   @media (min-width: $breakpoint-md) {
     width: 30%;
@@ -20,6 +20,7 @@
     position: absolute;
     right: 1em;
     top: 1em;
+    z-index: 1337;
     cursor: pointer;
   }
 
@@ -27,8 +28,29 @@
     width: 100%;
 
     form {
+      padding: 1em;
+      padding-top: 112px;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      flex-flow: wrap;
+
+      @media (min-width: $breakpoint-md) {
+        padding-top: 100px;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin: 0;
+        margin-bottom: 0.5em;
+        @media (min-width: $breakpoint-md) {
+          font-size: 50px;
+        }
+      }
+      h1,
+      input {
+        z-index: 1337;
+      }
 
       input {
         background: lighten(#f9f3f2, 10%);
@@ -39,6 +61,53 @@
         font-size: 18px;
         font-weight: 400;
         border-radius: 7px;
+
+        &[name=title],
+        &[name=email],
+        &[name=password],
+        &[name=paypal] {
+          width: 100%;
+        }
+      }
+
+      &:before {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        height: 200px;
+        width: 100%;
+        top: 0;
+        right: 0;
+        left: 0;
+        background-color: #f9f3f2;
+      }
+      &#registration {
+        &:before {
+          background-image: url("../assets/registration.svg");
+          background-repeat: no-repeat;
+          background-size: 140px;
+          background-position: right 1em top 47px;
+          @media (min-width: $breakpoint-md) {
+            background-size: 170px;
+          }
+        }
+      }
+
+      &#create-ticket,
+      &#registration {
+        input {
+          &[name="firstName"],
+          &[name="address.street"],
+          &[name="address.postalCode"] {
+            margin-right: 12px;
+          }
+        }
+      }
+
+      &#ticket {
+        .status {
+          background-color: #DDB8C0;
+        }
       }
     }
   }

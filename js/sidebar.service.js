@@ -58,7 +58,8 @@ class SidebarService {
                     ["type", "email"],
                     ["name", "email"],
                     ["placeholder", "E-Mail-Adresse"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "test@david.dev"]
                 ]
             },
 
@@ -68,7 +69,28 @@ class SidebarService {
                     ["type", "password"],
                     ["name", "password"],
                     ["placeholder", "Passwort"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "test"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "firstName"],
+                    ["placeholder", "Vorname"],
+                    ["required", "true"],
+                    ["value", "David"]
+                ]
+            },
+            {
+                type: "input",
+                attributes: [
+                    ["type", "text"],
+                    ["name", "lastName"],
+                    ["placeholder", "Nachname"],
+                    ["required", "true"],
+                    ["value", "Blumer"]
                 ]
             },
             {
@@ -77,7 +99,8 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "address.street"],
                     ["placeholder", "Straße"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "Sonnhalde"]
                 ]
             },
             {
@@ -86,7 +109,8 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "address.houseNumber"],
                     ["placeholder", "Hausnummer"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "2"]
                 ]
             },
             {
@@ -95,7 +119,8 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "address.postalCode"],
                     ["placeholder", "Postleitzahl"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "88709"]
                 ]
             },
             {
@@ -104,7 +129,8 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "address.city"],
                     ["placeholder", "Stadt"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "Meersburg"]
                 ]
             },
             {
@@ -113,7 +139,8 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "paypal"],
                     ["placeholder", "PayPal-Link"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "test"]
                 ]
             },
             {
@@ -156,7 +183,7 @@ class SidebarService {
                     ["required", "true"],
                     ["value", "test"]
                 ]
-            }, 
+            },
             {
                 type: "button",
                 attributes: [
@@ -164,7 +191,7 @@ class SidebarService {
                 ],
                 classList: ["button", "button-accent"],
                 innerHTML: "Login",
-                eventListener: (e) => {e.preventDefault(); return authenticationService.login()}
+                eventListener: (e) => { e.preventDefault(); return authenticationService.login() }
             }
         ];
 
@@ -172,11 +199,21 @@ class SidebarService {
         this.append(form);
     }
 
-    showListing(listing) {
+    showTicket(ticket) {
         const elements = [
             {
                 type: "h1",
-                innerHTML: `${listing.title}`
+                innerHTML: `${ticket.title}`
+            },
+            {
+                type: "span",
+                innerHTML: `${ticket.status}`,
+                classList: ["status"]
+            },
+            {
+                type: "span",
+                innerHTML: `${ticket.creator.firstName}`,
+                classList: ["creator"]
             },
             {
                 type: "button",
@@ -189,12 +226,30 @@ class SidebarService {
             }
         ];
 
-        const form = SidebarService.formBuilder("listing", elements);
+        const form = SidebarService.formBuilder("ticket", elements);
         this.append(form);
 
     }
 
-    showCreateListing(listing) {
+    showProfile(user) {
+        const elements = [
+            {
+                type: "h1",
+                innerHTML: `${user.email}`
+            }, 
+            user.tickets.map(ticket => {
+                return {
+                    type: "div",
+                    innerHTML: `${ticket}`
+                }
+            })
+        ];
+
+        const form = SidebarService.formBuilder("profile", elements);
+        this.append(form);
+    }
+
+    showCreateTicket(ticket) {
         const elements = [
             {
                 type: "h1",
@@ -245,19 +300,19 @@ class SidebarService {
                     ["required", "true"]
                 ]
             },
-                        {
+            {
                 type: "button",
                 attributes: [
                     ["type", "button"]
                 ],
                 classList: ["button", "button-accent"],
                 innerHTML: "Erstellen",
-                eventListener: listingService.createListing
+                eventListener: ticketService.createTicket
 
             }
         ];
 
-        const form = SidebarService.formBuilder("create-listing", elements);
+        const form = SidebarService.formBuilder("create-ticket", elements);
         this.append(form);
 
     }

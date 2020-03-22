@@ -6,9 +6,9 @@ class NavigationService {
         this.hamburger.addEventListener("click", this.toggle);
 
         this.elements = {
-            listing: {
+            ticket: {
                 title: "Neues Gesuch",
-                id: "new-listing",
+                id: "new-ticket",
                 protected: true,
                 highlighted: true
             },
@@ -17,9 +17,9 @@ class NavigationService {
                 id: "show-profile",
                 protected: true
             },
-            listings: {
+            tickets: {
                 title: "Meine Gesuche",
-                id: "show-listings",
+                id: "show-tickets",
                 protected: true
             },
             registration: {
@@ -99,14 +99,16 @@ class NavigationService {
     }
 
     profile() {
-        console.log("asdf")
+        userService.fetchProfile('api/users/362d931c-6bcb-11ea-94a1-067f51126ab8').then(user => {
+            sidebarService.showProfile(user);
+        });
     }
 
-    listing() {
-        sidebarService.showCreateListing();
+    ticket() {
+        sidebarService.showCreateTicket();
     }
 
-    listings() {
+    tickets() {
     }
 
     registration() {

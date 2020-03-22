@@ -1,12 +1,13 @@
-class Listing {
+class Ticket {
     id;
     title;
     acceptedBy;
     address;
     status;
     comments;
+    creator;
 
-    constructor(id, title, acceptedBy, address, status, comments) {
+    constructor(id, title, acceptedBy, address, status, comments, creator = null) {
         this.id = id;
         this.title = title;
         this.acceptedBy = acceptedBy;
@@ -15,40 +16,41 @@ class Listing {
         this.address = address;
         this.status = status;
         this.comments = comments;
+        this.creator = User.of(creator);
     }
 
     static of(item) {
-        return new Listing(item.id, item.title, item.acceptedBy, item.address, item.status, item.comments);
+        return new Ticket(item.id, item.title, item.acceptedBy, item.address, item.status, item.comments, item.creator);
     }
 
-    static toListings(items) {
-        return items.map(item => Listing.of(item));
+    static toTickets(items) {
+        return items.map(item => Ticket.of(item));
     }
 }
 
-class ListingService {
-    listings = [];
+class TicketService {
+    tickets = [];
     constructor() {}
 
-    fetchListings(location) {
+    fetchTickets(location) {
         return http({
             method: 'GET',
             url: `${config.backendUrl}/api/tickets?latitude=${location[1]}&longitude=${location[0]}`
         }).then(response => {
-            this.listings = Listing.toListings(response["hydra:member"]);
-            return this.listings;
+            this.tickets = Ticket.toTickets(response["hydra:member"]);
+            return this.tickets;
         })
     }
 
-    fetchListing(id) {
+    fetchTicket(id) {
         return http({
             method: 'GET',
             url: `${config.backendUrl}/api/tickets/${id}`
-        }).then(response => Listing.of(response));
+        }).then(response => Ticket.of(response));
     }
 
-    createListing() {
-        const form = document.getElementById("create-listing");
+    createTicket() {
+        const form = document.getElementById("create-ticket");
         const formData = formDataToJSON(form);
 
         http({
@@ -62,11 +64,11 @@ class ListingService {
     }
 
     static of(item) {
-        return new ListingService(item.id, item.location);
+        return new TicketService(item.id, item.location);
     }
 
     static toMarkers(items) {
-        return items.map(item => ListingService.of(item));
+        return items.map(item => TicketService.of(item));
     }
 
     addOnClick() {
@@ -77,17 +79,17 @@ class ListingService {
             })
     }
 
-    static generateRandomListings(center, radius, count) {
+    static generateRandomTickets(center, radius, count) {
         let points = [];
         for (let i = 0; i < count; i++) {
-            const location = ListingService.generateRandomListings(center, radius);
-            points.push(Listing.of({ id: i, location: location }));
+            const location = TicketService.generateRandomTicket(center, radius);
+            points.push(Ticket.of({ id: i, location: location }));
 
         }
         return points;
     }
 
-    static generateRandomListings(center, radius) {
+    static generateRandomTicket(center, radius) {
         let x0 = center.lng;
         let y0 = center.lat;
         // Convert Radius from meters to degrees.
