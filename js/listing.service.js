@@ -49,13 +49,12 @@ class ListingService {
 
     createListing() {
         const form = document.getElementById("create-listing");
-        let formData = new FormData(form);
-        formData = formDataToJSON(formData);
+        const formData = formDataToJSON(form);
 
         http({
             method: 'POST',
             url: `${config.backendUrl}/api/tickets`,
-            body: JSON.stringify(obj)
+            body: formData
         }).then(response => {
             navigationService.draw();
         })

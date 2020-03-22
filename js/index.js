@@ -4,7 +4,7 @@ const sidebarService = new SidebarService();
 const navigationService = new NavigationService();
 const listingService = new ListingService();
 const locationService = new LocationService();
-
+const userService = new UserService();
 
 locationService.fetchLocation().then(location => {
     mapbox.center(location[0], location[1]);

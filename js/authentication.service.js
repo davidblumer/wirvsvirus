@@ -14,31 +14,30 @@ class AuthenticationService {
         return this._token;
     }
 
-    login(email, password) {
+    login() {
+        const form = document.getElementById("login");
+        const formData = formDataToJSON(form);
+
         http({
             method: 'POST',
             url: `${config.backendUrl}/api/login`,
-            body: {
-                "username": email,
-                "password": password
-            }
+            body: formData
         }).then(response => {
-            authenticationService.token = response;
+            authenticationService.token = response.token;
             navigationService.draw();
-            sidebarService.hide();    
+            sidebarService.hide();
         })
 
     }
 
     registration() {
         const form = document.getElementById("registration");
-        let formData = new FormData(form);
-        formData = formDataToJSON(formData);
+        let formData = formDataToJSON(form);
 
         http({
             method: 'POST',
             url: `${config.backendUrl}/api/users`,
-            body: JSON.stringify(obj)
+            body: formData
         }).then(response => {
             this.token = response.token;
             navigationService.draw();
@@ -50,7 +49,7 @@ class AuthenticationService {
         localStorage.removeItem('token');
         navigationService.draw();
     }
-
+    
     isAuthenticated() {
         return this.token;
     }

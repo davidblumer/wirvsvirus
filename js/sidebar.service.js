@@ -93,8 +93,8 @@ class SidebarService {
                 type: "input",
                 attributes: [
                     ["type", "text"],
-                    ["name", "address.city"],
-                    ["placeholder", "Stadt"],
+                    ["name", "address.postalCode"],
+                    ["placeholder", "Postleitzahl"],
                     ["required", "true"]
                 ]
             },
@@ -102,8 +102,8 @@ class SidebarService {
                 type: "input",
                 attributes: [
                     ["type", "text"],
-                    ["name", "address.postalCode"],
-                    ["placeholder", "Postleitzahl"],
+                    ["name", "address.city"],
+                    ["placeholder", "Stadt"],
                     ["required", "true"]
                 ]
             },
@@ -143,7 +143,8 @@ class SidebarService {
                     ["type", "email"],
                     ["name", "email"],
                     ["placeholder", "E-Mail-Adresse"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "api1.wirvsvirus@spomsoree.dev"]
                 ]
             },
             {
@@ -152,17 +153,18 @@ class SidebarService {
                     ["type", "password"],
                     ["name", "password"],
                     ["placeholder", "Passwort"],
-                    ["required", "true"]
+                    ["required", "true"],
+                    ["value", "test"]
                 ]
             }, 
             {
                 type: "button",
                 attributes: [
-                    ["type", "button"]
+                    //["type", "button"]
                 ],
                 classList: ["button", "button-accent"],
                 innerHTML: "Login",
-                eventListener: () => {authenticationService.login("api.wirvsvirus@spomsoree.dev", "test")}
+                eventListener: (e) => {e.preventDefault(); return authenticationService.login()}
             }
         ];
 
@@ -229,8 +231,8 @@ class SidebarService {
                 type: "input",
                 attributes: [
                     ["type", "text"],
-                    ["name", "address.city"],
-                    ["placeholder", "Stadt"],
+                    ["name", "address.postalCode"],
+                    ["placeholder", "Postleitzahl"],
                     ["required", "true"]
                 ]
             },
@@ -238,8 +240,8 @@ class SidebarService {
                 type: "input",
                 attributes: [
                     ["type", "text"],
-                    ["name", "address.postalCode"],
-                    ["placeholder", "Postleitzahl"],
+                    ["name", "address.city"],
+                    ["placeholder", "Stadt"],
                     ["required", "true"]
                 ]
             },
@@ -251,12 +253,25 @@ class SidebarService {
                 classList: ["button", "button-accent"],
                 innerHTML: "Erstellen",
                 eventListener: listingService.createListing
+
             }
         ];
 
         const form = SidebarService.formBuilder("create-listing", elements);
         this.append(form);
 
+    }
+
+    showLoading() {
+        const elements = [
+            {
+                type: "div",
+                classList: ["loading", "sidebar"]
+            }
+        ];
+
+        const form = SidebarService.formBuilder("form-loading", elements);
+        this.append(form);
     }
 
     static formBuilder(id, elements) {
