@@ -15,6 +15,7 @@ locationService.fetchLocation().then(location => {
     mapbox.map.on('load', function () {
         ticketService.fetchTickets(locationService.loc).then(tickets => {
             mapbox.addMarker(tickets);
+        
         });
     });
 

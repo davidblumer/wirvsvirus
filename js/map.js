@@ -24,12 +24,8 @@ class Mapbox {
     }
 
     addMarker(tickets) {
-        mapbox.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
-
-        mapbox.map.addSource('points', {
-            'type': 'geojson',
-            'cluster': false,
-            'data': {
+        if (mapbox.map.getSource('points')) {
+            mapbox.map.getSource('points').setData({
                 'type': 'FeatureCollection',
                 'features': tickets.map(ticket => {
                     return {
@@ -43,16 +39,40 @@ class Mapbox {
                         }
                     }
                 })
-            }
-        });
-        mapbox.map.addLayer({
-            'id': 'points',
-            'type': 'symbol',
-            'source': 'points',
-            'layout': {
-                'icon-image': 'pulsing-dot'
-            }
-        });
+            });
+        }
+        else {
+
+            mapbox.map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+            mapbox.map.addSource('points', {
+                'type': 'geojson',
+                'cluster': false,
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': tickets.map(ticket => {
+                        return {
+                            'type': 'Feature',
+                            'properties': {
+                                'id': ticket.id
+                            },
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [ticket.address.longitude, ticket.address.latitude]
+                            }
+                        }
+                    })
+                }
+            });
+            mapbox.map.addLayer({
+                'id': 'points',
+                'type': 'symbol',
+                'source': 'points',
+                'layout': {
+                    'icon-image': 'pulsing-dot'
+                }
+            });
+        }
+
 
         mapbox.map.on('click', 'points', function (e) {
             mapbox.map.flyTo({ center: e.features[0].geometry.coordinates, zoom: 15 });
@@ -94,8 +114,8 @@ let pulsingDot = {
 
         let img = new Image();
         img.src = './assets/icon.svg';
-        img.onload = function(){
-          context.drawImage(img, 145, 155);
+        img.onload = function () {
+            context.drawImage(img, 145, 155);
         }
         // // draw outer circle
         // context.clearRect(0, 0, this.width, this.height);
@@ -127,7 +147,7 @@ let pulsingDot = {
         context.stroke();
 
 
-      
+
         // update this image's data with data from the canvas
         this.data = context.getImageData(
             0,

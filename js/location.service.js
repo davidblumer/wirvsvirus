@@ -29,7 +29,7 @@ class LocationService {
         });
     }
 
-    getLocationFromAdress(formData) {
+    addLocationFromAddress(formData) {
         formData = JSON.parse(formData)
 
         formData.address = {

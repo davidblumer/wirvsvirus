@@ -59,7 +59,7 @@ class SidebarService {
                     ["name", "email"],
                     ["placeholder", "E-Mail-Adresse"],
                     ["required", "true"],
-                    ["value", "test@david.dev"]
+                    ["value", "test10@david.dev"]
                 ]
             },
 
@@ -80,7 +80,7 @@ class SidebarService {
                     ["name", "firstName"],
                     ["placeholder", "Vorname"],
                     ["required", "true"],
-                    ["value", "David"]
+                    ["value", "John"]
                 ]
             },
             {
@@ -90,7 +90,7 @@ class SidebarService {
                     ["name", "lastName"],
                     ["placeholder", "Nachname"],
                     ["required", "true"],
-                    ["value", "Blumer"]
+                    ["value", "Doe"]
                 ]
             },
             {
@@ -100,7 +100,7 @@ class SidebarService {
                     ["name", "address.street"],
                     ["placeholder", "Straße"],
                     ["required", "true"],
-                    ["value", "Sonnhalde"]
+                    ["value", "Wollmatinger Straße"]
                 ]
             },
             {
@@ -110,7 +110,7 @@ class SidebarService {
                     ["name", "address.houseNumber"],
                     ["placeholder", "Hausnummer"],
                     ["required", "true"],
-                    ["value", "2"]
+                    ["value", "1"]
                 ]
             },
             {
@@ -120,7 +120,7 @@ class SidebarService {
                     ["name", "address.postalCode"],
                     ["placeholder", "Postleitzahl"],
                     ["required", "true"],
-                    ["value", "88709"]
+                    ["value", "78462"]
                 ]
             },
             {
@@ -130,7 +130,7 @@ class SidebarService {
                     ["name", "address.city"],
                     ["placeholder", "Stadt"],
                     ["required", "true"],
-                    ["value", "Meersburg"]
+                    ["value", "Konstanz"]
                 ]
             },
             {
@@ -140,7 +140,7 @@ class SidebarService {
                     ["name", "paypal"],
                     ["placeholder", "PayPal-Link"],
                     ["required", "true"],
-                    ["value", "test"]
+                    ["value", "paypal.me/johndoe"]
                 ]
             },
             {
@@ -199,31 +199,77 @@ class SidebarService {
         this.append(form);
     }
 
-    showTicket(ticket) {
+
+    showTickets(tickets) {
         const elements = [
             {
                 type: "h1",
-                innerHTML: `${ticket.title}`
+                innerHTML: `Deine Gesuche`
+            },
+            {
+                type: "div",
+                classList: ["tickets"],
+                innerHTML: `<ul>
+                <li>
+                    Klopapier
+
+                    <span class="status IN_PROGRESS">IN BEARBEITUNG</span>
+                    <button class="button button-accent in_progress">
+                    <a href="http://paypal.me/johndoe/25" target="_blank">BEZAHLEN </a></button>
+                </li>
+                </ul>`
+            },
+        ];
+
+        const form = SidebarService.formBuilder("tickets", elements);
+        this.append(form);
+
+    }
+
+    showTicket(ticket) {
+        const elements = [
+            {
+                type: "span",
+                innerHTML: `${ ticket.status === 'OPEN' ? 'OFFEN' : (ticket.status === 'IN_PROGRESS' ? 'IN BEARBEITUNG' : 'ABGESCHLOSSEN')}`,
+                classList: ["status",ticket.status]
             },
             {
                 type: "span",
-                innerHTML: `${ticket.status}`,
-                classList: ["status"]
-            },
-            {
-                type: "span",
-                innerHTML: `${ticket.creator.firstName}`,
+                innerHTML: `Von: David`,
                 classList: ["creator"]
+            },
+            {
+                type: "h1",
+                innerHTML: `${ticket.title}`
             },
             {
                 type: "button",
                 attributes: [
                     ["type", "button"]
                 ],
-                classList: ["button", "button-accent"],
-                innerHTML: "Annehmen",
-                //eventListener: 
-            }
+                classList: ["button", "button-accent", ticket.status],
+                innerHTML: `${ ticket.status === 'OPEN' ? 'ANNEHMEN' : (ticket.status === 'IN_PROGRESS' ? 'ABSCHLIESSEN' : 'ABGESCHLOSSEN')}`,
+                eventListener: () => {
+                    if(ticket.status === 'OPEN') {
+                        ticketService.acceptTicket(ticket)
+                    } else if(ticket.status === 'IN_PROGRESS') {
+                        ticketService.closeTicket(ticket)
+                    }
+                }
+            },
+            {
+                type: "div",
+                innerHTML: ticket.description,
+                classList: ["description"]
+            },
+            {
+                type: "h4",
+                innerHTML: `Kommentare`
+            },
+            {
+                type: "textarea",
+                classList: ["status"]
+            },
         ];
 
         const form = SidebarService.formBuilder("ticket", elements);
@@ -236,7 +282,7 @@ class SidebarService {
             {
                 type: "h1",
                 innerHTML: `${user.email}`
-            }, 
+            },
             user.tickets.map(ticket => {
                 return {
                     type: "div",
@@ -261,6 +307,14 @@ class SidebarService {
                     ["type", "text"],
                     ["name", "title"],
                     ["placeholder", "Titel"],
+                    ["required", "true"]
+                ]
+            },
+            {
+                type: "textarea",
+                attributes: [
+                    ["name", "description"],
+                    ["placeholder", "Beschreibung"],
                     ["required", "true"]
                 ]
             },

@@ -99,7 +99,7 @@ class NavigationService {
     }
 
     profile() {
-        userService.fetchProfile('api/users/362d931c-6bcb-11ea-94a1-067f51126ab8').then(user => {
+        userService.fetchProfile(`api/users/${authenticationService.id}`).then(user => {
             sidebarService.showProfile(user);
         });
     }
@@ -109,6 +109,9 @@ class NavigationService {
     }
 
     tickets() {
+        userService.fetchTickets().then(tickets => {
+            sidebarService.showTickets(tickets);
+        })
     }
 
     registration() {

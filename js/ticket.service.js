@@ -2,12 +2,13 @@ class Ticket {
     id;
     title;
     acceptedBy;
+    description;
     address;
     status;
     comments;
     creator;
 
-    constructor(id, title, acceptedBy, address, status, comments, creator = null) {
+    constructor(id, title, acceptedBy, address, status, comments, description, creator = null) {
         this.id = id;
         this.title = title;
         this.acceptedBy = acceptedBy;
@@ -17,10 +18,11 @@ class Ticket {
         this.status = status;
         this.comments = comments;
         this.creator = User.of(creator);
+        this.description = description;
     }
 
     static of(item) {
-        return new Ticket(item.id, item.title, item.acceptedBy, item.address, item.status, item.comments, item.creator);
+        return new Ticket(item.id, item.title, item.acceptedBy, item.address, item.status, item.comments, item.description, item.creator);
     }
 
     static toTickets(items) {
@@ -53,13 +55,42 @@ class TicketService {
         const form = document.getElementById("create-ticket");
         const formData = formDataToJSON(form);
 
-        http({
-            method: 'POST',
-            url: `${config.backendUrl}/api/tickets`,
-            body: formData
-        }).then(response => {
-            navigationService.draw();
-        })
+        locationService.addLocationFromAddress(formData).then(formData => {
+            http({
+                method: 'POST',
+                url: `${config.backendUrl}/api/tickets`,
+                body: formData
+            }).then(response => {
+                let ticket = Ticket.of(response);
+                mapbox.center(ticket.address.longitude, ticket.address.latitude);
+                sidebarService.showTicket(ticket);
+                ticketService.fetchTickets(locationService.loc).then(tickets => {
+                    mapbox.addMarker(tickets);
+                });
+            })    
+        });
+
+    }
+
+    acceptTicket(ticket) {
+        return http({
+            method: 'GET',
+            url: `${config.backendUrl}/api/tickets/${ticket.id}/accept`
+        }).then(ticket => {
+            ticket = Ticket.of(ticket);
+            sidebarService.showTicket(ticket);
+        });
+
+    }
+
+    closeTicket(ticket) {
+        return http({
+            method: 'GET',
+            url: `${config.backendUrl}/api/tickets/${ticket.id}/close`
+        }).then(ticket => {
+            ticket = Ticket.of(ticket);
+            sidebarService.showTicket(ticket);
+        });
 
     }
 
